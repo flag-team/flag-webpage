@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simulátor formálnych automatov a gramatík</title>
+  <meta name="description" content="Rýchly test nasadenia statickej stránky." />
+  <style>
+    :root{
+      --bg:#0f172a;        /* slate-900 */
+      --card:#111827;      /* gray-900  */
+      --muted:#94a3b8;     /* slate-400 */
+      --text:#e5e7eb;      /* gray-200  */
+      --accent:#60a5fa;    /* blue-400  */
+      --accent-2:#34d399;  /* emerald-400 */
+      --ring:#1f2937;      /* gray-800  */
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% -10%, rgba(96,165,250,.25), transparent 60%),
+        radial-gradient(1000px 500px at 110% 10%, rgba(52,211,153,.18), transparent 60%),
+        var(--bg);
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700}
+    .brand .dot{width:10px;height:10px;border-radius:999px;background:linear-gradient(45deg,var(--accent),var(--accent-2))}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;
+      border:1px solid var(--ring);background:rgba(255,255,255,.02);
+      padding:10px 14px;border-radius:12px;cursor:pointer;
+      transition:transform .06s ease, border-color .2s ease, background .2s ease;
+    }
+    .btn:hover{border-color:rgba(96,165,250,.5);background:rgba(255,255,255,.04)}
+    .btn:active{transform:translateY(1px)}
+    .hero{
+      padding:72px 0 48px; text-align:center;
+    }
+    .hero h1{
+      font-size: clamp(28px, 4vw, 44px);
+      line-height:1.1;margin:0 0 12px;
+      letter-spacing:-0.02em;
+    }
+    .hero p{color:var(--muted);margin:0 auto 22px;max-width:720px}
+    .grid{
+      display:grid;gap:16px;grid-template-columns:repeat(12,1fr);
+    }
+    .card{
+      grid-column: span 12;
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--ring);border-radius:16px;padding:18px;
+    }
+    .kpis{margin:28px 0}
+    .kpi{
+      display:flex;flex-direction:column;gap:6px;
+      background:linear-gradient(180deg,rgba(16,185,129,.08),rgba(59,130,246,.06));
+      border:1px solid rgba(59,130,246,.25);
+      border-radius:14px;padding:16px;text-align:center;
+    }
+    .kpi .val{font-size:28px;font-weight:800;letter-spacing:-.02em}
+    .kpi .lbl{color:var(--muted);font-size:13px}
+    .features{margin-top:8px}
+    .features .card h3{margin:0 0 8px}
+    .features .card p{margin:0;color:var(--muted)}
+    .footer{margin:40px 0 10px;color:var(--muted);font-size:13px;text-align:center}
+    /* responsive */
+    @media (min-width:640px){
+      .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+      .features .card{grid-column:span 4}
+    }
+    @media (min-width:1024px){
+      .features{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+      .features .card{grid-column:span 4}
+    }
+    /* little badge */
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;border:1px solid var(--ring);
+      background:rgba(255,255,255,.03);color:var(--muted);font-size:12px;
+    }
+    .ok-dot{width:8px;height:8px;border-radius:999px;background:var(--accent-2);box-shadow:0 0 0 4px rgba(52,211,153,.15)}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+    .code{background:#0b1220;border:1px solid var(--ring);padding:14px;border-radius:12px;overflow:auto}
+  </style>
+</head>
+<body>
+  <header class="container nav">
+    
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Simulátor formálnych automatov a gramatík</h1>
+      <p></p>
+      <div style="margin-top:16px">
+        <button class="btn" id="timeBtn">Zobraziť aktuálny čas</button>
+      </div>
+      <p id="timeOut" class="mono" style="margin-top:10px;color:var(--muted)"></p>
+
+      <div class="kpis">
+        <div class="kpi"><div class="val" id="buildDate">—</div><div class="lbl">Dátum načítania</div></div>
+        <div class="kpi"><div class="val" id="branch">website</div><div class="lbl">Vetva</div></div>
+        <div class="kpi"><div class="val" id="health">OK</div><div class="lbl">Stav</div></div>
+      </div>
+
+      <div class="card code">
+        <div class="mono" style="white-space:pre-wrap" aria-label="Inštrukcie">
+git checkout -b website
+# vlož tento súbor ako index.html
+git add index.html
+git commit -m "Add test stránku"
+git push -u origin website
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      
+    </section>
+
+    
+  </main>
+
+  <footer class="footer container">
+    © <span id="year"></span> Test stránka • Vyrobené s láskou a HTML
+  </footer>
+
+  
+</body>
+</html>
+
