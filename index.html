@@ -23,7 +23,6 @@
       color:var(--text);
       background:
         radial-gradient(1200px 600px at 20% -10%, rgba(96,165,250,.25), transparent 60%),
-        radial-gradient(1000px 500px at 110% 10%, rgba(52,211,153,.18), transparent 60%),
         var(--bg);
     }
     a{color:inherit;text-decoration:none}
@@ -39,20 +38,12 @@
     }
     .btn:hover{border-color:rgba(96,165,250,.5);background:rgba(255,255,255,.04)}
     .btn:active{transform:translateY(1px)}
-    .hero{
-      padding:72px 0 48px; text-align:center;
-    }
-    .hero h1{
-      font-size: clamp(28px, 4vw, 44px);
-      line-height:1.1;margin:0 0 12px;
-      letter-spacing:-0.02em;
-    }
+    .hero{padding:72px 0 48px;text-align:center}
+    .hero h1{font-size:clamp(28px,4vw,44px);line-height:1.1;margin:0 0 12px;letter-spacing:-0.02em}
     .hero p{color:var(--muted);margin:0 auto 22px;max-width:720px}
-    .grid{
-      display:grid;gap:16px;grid-template-columns:repeat(12,1fr);
-    }
+    .grid{display:grid;gap:16px;grid-template-columns:repeat(12,1fr)}
     .card{
-      grid-column: span 12;
+      grid-column:span 12;
       background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
       border:1px solid var(--ring);border-radius:16px;padding:18px;
     }
@@ -85,14 +76,29 @@
       background:rgba(255,255,255,.03);color:var(--muted);font-size:12px;
     }
     .ok-dot{width:8px;height:8px;border-radius:999px;background:var(--accent-2);box-shadow:0 0 0 4px rgba(52,211,153,.15)}
-    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
     .code{background:#0b1220;border:1px solid var(--ring);padding:14px;border-radius:12px;overflow:auto}
+
+    /* TABUĽKA ZÁPISNICE */
+    table.minutes{width:100%;border-collapse:collapse;margin-top:10px}
+    .minutes th,.minutes td{border:1px solid var(--ring);padding:10px;vertical-align:top;text-align:left}
+    .minutes thead th{background:rgba(255,255,255,.04)}
+    .minutes tbody tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+    .minutes input,.minutes textarea,.minutes select{
+      width:100%;padding:10px;border-radius:10px;border:1px solid var(--ring);
+      background:rgba(255,255,255,.02);color:var(--text);resize:vertical
+    }
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    @media print{
+      .btn,.toolbar{display:none!important}
+      body{background:#fff;color:#000}
+      .card{border-color:#ccc;background:#fff}
+      .minutes input,.minutes textarea,.minutes select{border:none;padding:0;background:transparent;color:#000}
+    }
   </style>
 </head>
 <body>
-  <header class="container nav">
-    
-  </header>
+  <header class="container nav"></header>
 
   <main class="container">
     <section class="hero">
@@ -105,33 +111,82 @@
 
       <div class="kpis">
         <div class="kpi"><div class="val" id="buildDate">—</div><div class="lbl">Dátum načítania</div></div>
-        <div class="kpi"><div class="val" id="branch">website</div><div class="lbl">Vetva</div></div>
+        <div class="kpi"><div class="val" id="branch">main</div><div class="lbl">Vetva</div></div>
         <div class="kpi"><div class="val" id="health">OK</div><div class="lbl">Stav</div></div>
       </div>
-
-      <div class="card code">
-        <div class="mono" style="white-space:pre-wrap" aria-label="Inštrukcie">
-git checkout -b website
-# vlož tento súbor ako index.html
-git add index.html
-git commit -m "Add test stránku"
-git push -u origin website
-        </div>
-      </div>
     </section>
-
-    <section class="features">
+    <!-- ZÁPISNICA -->
+    <section id="zapisnica" class="card">
+      <h3 style="margin:0 0 10px">Zápisnica zo stretnutia</h3>
       
+      <div class="toolbar">
+        <button class="btn" id="btnAddRow">Pridať riadok</button>
+        <button class="btn" id="btnPrint">Vytlačiť</button>
+      </div>
+
+      <table class="minutes" id="minutesTable" aria-label="Tabuľka zápisnice">
+        <thead>
+          <tr>
+            <th style="width:42px">#</th>
+            <th>Téma / bod rokovania</th>
+            <th>Diskusia / poznámky</th>
+            <th style="width:190px">Zodpovedný</th>
+            <th style="width:160px">Termín</th>
+            <th style="width:110px">Splnené</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mono" data-idx="1">1</td>
+            <td><input placeholder="Napr. Stav úlohy A" /></td>
+            <td><textarea rows="2" placeholder="Krátky záznam diskusie..."></textarea></td>
+            <td><input placeholder="M. Novák" /></td>
+            <td><input type="date" /></td>
+            <td style="text-align:center"><input type="checkbox" /></td>
+          </tr>
+        </tbody>
+      </table>
     </section>
 
-    
+    <section class="features"></section>
   </main>
 
   <footer class="footer container">
     © <span id="year"></span> Test stránka • Vyrobené s láskou a HTML
   </footer>
 
-  
+  <script>
+    const $ = (s) => document.querySelector(s);
+    const byId = (id) => document.getElementById(id);
+
+    // Info
+    byId('year').textContent = new Date().getFullYear();
+    byId('buildDate').textContent = new Date().toLocaleDateString('sk-SK');
+
+    // Časové tlačidlo
+    byId('timeBtn').addEventListener('click', () => {
+      byId('timeOut').textContent = 'Aktuálny čas: ' + new Date().toLocaleString('sk-SK');
+    });
+
+    // Pridať riadok do zápisnice
+    byId('btnAddRow').addEventListener('click', () => {
+      const tbody = byId('minutesTable').querySelector('tbody');
+      const rowCount = tbody.rows.length + 1;
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="mono" data-idx="${rowCount}">${rowCount}</td>
+        <td><input placeholder="Napr. Nový bod" /></td>
+        <td><textarea rows="2" placeholder="Poznámky..."></textarea></td>
+        <td><input placeholder="Zodpovedný" /></td>
+        <td><input type="date" /></td>
+        <td style="text-align:center"><input type="checkbox" /></td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // Tlač
+    byId('btnPrint').addEventListener('click', () => window.print());
+  </script>
 </body>
 </html>
-
