@@ -60,26 +60,8 @@
     .features .card h3{margin:0 0 8px}
     .features .card p{margin:0;color:var(--muted)}
     .footer{margin:40px 0 10px;color:var(--muted);font-size:13px;text-align:center}
-    /* responsive */
-    @media (min-width:640px){
-      .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-      .features .card{grid-column:span 4}
-    }
-    @media (min-width:1024px){
-      .features{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-      .features .card{grid-column:span 4}
-    }
-    /* little badge */
-    .badge{
-      display:inline-flex;align-items:center;gap:8px;
-      padding:8px 12px;border-radius:999px;border:1px solid var(--ring);
-      background:rgba(255,255,255,.03);color:var(--muted);font-size:12px;
-    }
-    .ok-dot{width:8px;height:8px;border-radius:999px;background:var(--accent-2);box-shadow:0 0 0 4px rgba(52,211,153,.15)}
-    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
-    .code{background:#0b1220;border:1px solid var(--ring);padding:14px;border-radius:12px;overflow:auto}
 
-    /* TABUĽKA ZÁPISNICE */
+    /* minutes table */
     table.minutes{width:100%;border-collapse:collapse;margin-top:10px}
     .minutes th,.minutes td{border:1px solid var(--ring);padding:10px;vertical-align:top;text-align:left}
     .minutes thead th{background:rgba(255,255,255,.04)}
@@ -89,11 +71,33 @@
       background:rgba(255,255,255,.02);color:var(--text);resize:vertical
     }
     .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+
+    /* imported minutes */
+    .imported h4{margin:10px 0 6px}
+    details{border:1px solid var(--ring);border-radius:14px;padding:12px 14px;background:rgba(255,255,255,.03)}
+    details + details{margin-top:10px}
+    details summary{cursor:pointer;font-weight:700}
+    .meta{display:grid;grid-template-columns:repeat(12,1fr);gap:10px;margin-top:8px}
+    .meta div{grid-column:span 6}
+    .meta .full{grid-column:span 12}
+    .tasks{width:100%;border-collapse:collapse;margin-top:8px}
+    .tasks th,.tasks td{border:1px solid var(--ring);padding:8px;text-align:left}
+    .muted{color:var(--muted)}
+
+    @media (min-width:640px){
+      .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+      .features .card{grid-column:span 4}
+      .meta div{grid-column:span 4}
+      .meta .full{grid-column:span 12}
+    }
+
     @media print{
-      .btn,.toolbar{display:none!important}
+      .btn,.toolbar,details summary{display:none!important}
       body{background:#fff;color:#000}
       .card{border-color:#ccc;background:#fff}
       .minutes input,.minutes textarea,.minutes select{border:none;padding:0;background:transparent;color:#000}
+      details{border:none;padding:0}
+      .tasks th,.tasks td{border-color:#bbb}
     }
   </style>
 </head>
@@ -115,10 +119,10 @@
         <div class="kpi"><div class="val" id="health">OK</div><div class="lbl">Stav</div></div>
       </div>
     </section>
-    <!-- ZÁPISNICA -->
+
+    <!-- ZÁPISNICA (editovateľná) -->
     <section id="zapisnica" class="card">
       <h3 style="margin:0 0 10px">Zápisnica zo stretnutia</h3>
-      
       <div class="toolbar">
         <button class="btn" id="btnAddRow">Pridať riadok</button>
         <button class="btn" id="btnPrint">Vytlačiť</button>
@@ -146,6 +150,78 @@
           </tr>
         </tbody>
       </table>
+    </section>
+
+    <!-- HISTÓRIA ZÁPISNÍC (import z PDF) -->
+    <section class="card imported">
+      <h3 style="margin:0 0 10px">História zápisníc (import z PDF)</h3>
+
+      <!-- Týždeň 1 -->
+      <details open>
+        <summary>Týždeň 1 — 2025-10-01</summary>
+        <div class="meta">
+          <div><strong>Vedúca:</strong> doc. Mgr. Daniela Chudá, PhD.</div>
+          <div><strong>Tím:</strong> Martin Lukačka, Jakub Taňkoš, Juraj Lopušek, Slavomír Tung Le Minh, Samuel Strečko</div>
+          <div class="full"><strong>Účastníci:</strong> Martin Lukačka, Jakub Taňkoš, Juraj Lopušek, Samuel Strečko</div>
+        </div>
+        <h4>Popis priebehu stretnutia</h4>
+        <p class="muted">Prvé stretnutie: prebraté ciele a rozsah projektu (androidový simulátor pre automaty, gramatiky a prevody medzi nimi) so zameraním na kvalitu simulácie; ukážka existujúcich riešení; dohodnutý prvotný postup (oboznámenie s doménou, porovnanie simulátorov, založenie podporných nástrojov, náhľad do existujúceho riešenia). Zdieľané materiály a kód, na ktorých možno stavať.</p>
+        <h4>Ciele na budúci týždeň</h4>
+        <table class="tasks" aria-label="Úlohy – týždeň 1">
+          <thead><tr><th>Úloha</th><th>Zodpovedný</th></tr></thead>
+          <tbody>
+            <tr><td>Rozdeliť si úlohy v tíme a pomenovať ich</td><td>Tím</td></tr>
+            <tr><td>Pripraviť tímový web</td><td>Juraj</td></tr>
+            <tr><td>Rozbehať podporné nástroje (GitHub, Jira, Overleaf, Zotero)</td><td>Tím</td></tr>
+            <tr><td>Preskúmať repozitár aplikácie na GitHube</td><td>Martin</td></tr>
+            <tr><td>Pripraviť komparatívnu analýzu existujúcich simulátorov</td><td>Samuel</td></tr>
+          </tbody>
+        </table>
+      </details>
+
+      <!-- Týždeň 2 -->
+      <details>
+        <summary>Týždeň 2 — 2025-10-08</summary>
+        <div class="meta">
+          <div class="full"><strong>Účastníci:</strong> Martin Lukačka, Jakub Taňkoš, Juraj Lopušek, Samuel Strečko</div>
+        </div>
+        <h4>Úlohy z minulého týždňa</h4>
+        <table class="tasks" aria-label="Úlohy – týždeň 2 (stav)">
+          <thead><tr><th>Úloha</th><th>Zodpovedný</th><th>Stav</th></tr></thead>
+          <tbody>
+            <tr><td>Rozdeliť si úlohy</td><td>Tím</td><td>Nespravené</td></tr>
+            <tr><td>Pripraviť tímový web</td><td>Juraj</td><td>V procese</td></tr>
+            <tr><td>Rozbehať Jiru</td><td>Jakub</td><td>Spravené</td></tr>
+            <tr><td>Rozbehať Zotero + Overleaf</td><td>Samuel</td><td>Nespravené</td></tr>
+            <tr><td>Nakuknúť do repozitára apky FormalAutoSim</td><td>Martin</td><td>Spravené</td></tr>
+            <tr><td>Úvodná komparatívna analýza existujúcich simulátorov</td><td>Samuel</td><td>Spravené</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Popis priebehu stretnutia</h4>
+        <p class="muted">Krátka ukážka teórie z oblasti automatov. Diskusia k porovnaniu simulátorov (JFLAP, FSAM, CMSimulator, FAS); dohodnuté ciele „related work“ časti. Zvolený vedúci tímu: Martin Lukačka. Podporné nástroje v rozbehu. Pracovať budeme so súborovým formátom <code>.jff</code>.</p>
+
+        <h4>Ciele na budúci týždeň</h4>
+        <table class="tasks" aria-label="Ciele – týždeň 2">
+          <thead><tr><th>Úloha</th><th>Zodpovedný</th></tr></thead>
+          <tbody>
+            <tr><td>Pripraviť poriadnu komparatívnu analýzu (kritériá, výhody/limity)</td><td>Samuel</td></tr>
+            <tr><td>Definovať požiadavky a začať budovať backlog</td><td>Tím</td></tr>
+            <tr><td>Rozbeh Overleaf a Zotero</td><td>Samuel</td></tr>
+            <tr><td>Preskúmať repozitár aplikácie na GitHube</td><td>Tím</td></tr>
+            <tr><td>Pochopiť doménu predmetu Formálne jazyky</td><td>Tím</td></tr>
+            <tr><td>Vysvetliť doménu predmetu Formálne jazyky</td><td>Samuel</td></tr>
+            <tr><td>Spojazdniť web</td><td>Juraj</td></tr>
+            <tr><td>Dorobiť zápisnice z prvých stretnutí</td><td>Samuel</td></tr>
+          </tbody>
+        </table>
+      </details>
+
+      <!-- Týždeň 3 -->
+      <details>
+        <summary>Týždeň 3 — 2025-10-15</summary>
+        <p class="muted">Stretnutie zrušené z dôvodu nátlaku ostatných predmetov.</p>
+      </details>
     </section>
 
     <section class="features"></section>
