@@ -221,6 +221,120 @@
         <summary>Týždeň 3 — 2025-10-15</summary>
         <p class="muted">Stretnutie zrušené z dôvodu nátlaku ostatných predmetov.</p>
       </details>
+      <!-- Týždeň 4 -->
+<details>
+  <summary>Týždeň 4 — 2025-10-22</summary>
+
+  <div class="meta">
+    <div class="full"><strong>Účastníci:</strong> Martin Lukačka, Jakub Taňkoš, Samuel Strečko</div>
+  </div>
+
+  <h4>Slovné zhrnutie vykonanej práce</h4>
+  <p class="muted">
+    S komparatívnou analýzou sa nepohlo, backlog sa začal budovať, Overleaf a Zotero sú rozbehnuté.
+    Martin priebežne prechádza kód na GitHube, aby sme vedeli, čo použiť a čo nie. Teóriu sa nepodarilo prejsť,
+    nebol čas na spoločné stretko. Web beží, zápisnice sú dorobené.
+  </p>
+
+  <h4>Popis priebehu stretnutia</h4>
+  <ul class="muted">
+    <li>Rozhodnutie: aplikácia bude <b>portrait</b> (na výšku) kvôli nadviazaniu na existujúcu apku.</li>
+    <li>Analýza codebase – pozrieť, čo je použiteľné, čo upraviť.</li>
+    <li>Dizajn/logika:
+      <ul>
+        <li>„Páska“: úpravy nie sú vyhovujúce.
+          <ul>
+            <li>Editovanie cez ikonku pera vľavo vedľa pásky.</li>
+            <li>Slovo na páske zľava doprava.</li>
+            <li>Highlight aktuálne čítaného políčka.</li>
+            <li>Pri dlhom slove posun pásky doľava; zvýrazniť posledné políčko.</li>
+          </ul>
+        </li>
+        <li>Navrhnúť percentuálne rozloženie obrazovky:
+          <ul>
+            <li>canvas s páskou</li>
+            <li>canvas s automatom</li>
+            <li>canvas so stromom rekurzií (nájsť knižnicu na generovanie/kreslenie)</li>
+            <li>ovládacie políčka (fixovať dole)</li>
+          </ul>
+        </li>
+        <li>Odstrániť horné tlačidlá (dočasne bez export/share).</li>
+        <li>Odstrániť zbytočné okraje pre viac miesta.</li>
+        <li>Simulácia: krok vpred, krok vzad, simuluj, stoj.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h4>Ciele na budúci týždeň</h4>
+  <table class="tasks" aria-label="Ciele – týždeň 4">
+    <thead><tr><th>Úloha</th><th>Zodpovedný</th></tr></thead>
+    <tbody>
+      <tr><td>Skúšanie aplikácie, identifikácia pozitív/negatív</td><td>Tím</td></tr>
+      <tr><td>Náhľad do codebase-u aplikácie, z ktorej vychádzame</td><td>Tím</td></tr>
+      <tr><td>Navrhnúť náš dizajn po náhľade a skúšaní</td><td>Tím</td></tr>
+      <tr><td>Komparatívna analýza</td><td>Samo</td></tr>
+      <tr><td>Naučiť teóriu</td><td>Samo</td></tr>
+      <tr><td>Pozvať pani vedúcu do Jiry</td><td>Jakub</td></tr>
+    </tbody>
+  </table>
+</details>
+
+<!-- Týždeň 5 -->
+<details>
+  <summary>Týždeň 5 — 2025-10-29</summary>
+
+  <div class="meta">
+    <div class="full"><strong>Účastníci:</strong> Martin Lukačka, Samuel Strečko</div>
+  </div>
+
+  <h4>Úlohy z minulého týždňa</h4>
+  <table class="tasks" aria-label="Úlohy – týždeň 5 (stav)">
+    <thead><tr><th>Úloha</th><th>Zodpovedný</th><th>Stav</th></tr></thead>
+    <tbody>
+      <tr><td>Skúšanie aplikácie (pozitíva/negatíva)</td><td>Tím</td><td>Nespravené</td></tr>
+      <tr><td>Náhľad do codebase-u aplikácie</td><td>Tím</td><td>Nespravené</td></tr>
+      <tr><td>Navrhnúť náš dizajn</td><td>Tím</td><td>Nespravené</td></tr>
+      <tr><td>Komparatívna analýza</td><td>Samo</td><td>Nespravené</td></tr>
+      <tr><td>Naučiť teóriu</td><td>Samo</td><td>Spravené</td></tr>
+      <tr><td>Pozvať pani vedúcu do Jiry</td><td>Jakub</td><td>Spravené</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Slovné zhrnutie vykonanej práce</h4>
+  <p class="muted">
+    Martin vzal novšiu vetvu pôvodnej apky (nie master) a založil nový repozitár; refaktoroval
+    codebase kvôli prehľadnosti (pôvodne spojené 2 apky narýchlo). Ďalší vývoj má vychádzať z
+    <em>sfag-android</em> (master vetva). Samo pridal dve videá k DFA a NFA na spoločný disk.
+  </p>
+
+  <h4>Prekážky v práci</h4>
+  <ul class="muted">
+    <li>Málo času venovaného tímovému projektu.</li>
+    <li>Nedostatočné rozdelenie úloh členom, ktorí neboli na stretkách.</li>
+  </ul>
+
+  <h4>Popis priebehu stretnutia</h4>
+  <p class="muted">
+    Rozdelené prvé programátorské úlohy; cieľom je budúci týždeň zhodnotiť priebeh a časové odhady.
+    Pri návrhu objektov myslieť na opätovné použitie (napr. páska pre KA i Turingov stroj).
+    Otázky k teórii/zadaniam smerovať na Sama.
+  </p>
+
+  <h4>Ciele na budúci týždeň</h4>
+  <table class="tasks" aria-label="Ciele – týždeň 5">
+    <thead><tr><th>Úloha</th><th>Zodpovedný</th></tr></thead>
+    <tbody>
+      <tr><td>Testovanie KA (DFA/NFA) z pohľadu UX</td><td>Slavo</td></tr>
+      <tr><td>Navrhnúť prívetivý dizajn podľa poznatkov a dohody (viď Týždeň 4)</td><td>Slavo</td></tr>
+      <tr><td>Preprogramovať logiku pásky podľa parametrov (viď Týždeň 4)</td><td>Jakub</td></tr>
+      <tr><td>Pochopiť kód KA a naprogramovať test nedeterminizmu</td><td>Juraj</td></tr>
+      <tr><td>Komparatívna analýza</td><td>Samo</td></tr>
+      <tr><td>Problém vykresľovania stromu nedeterminizmu</td><td>Martin</td></tr>
+    </tbody>
+  </table>
+</details>
+
+      
     </section>
 
     <section class="features"></section>
